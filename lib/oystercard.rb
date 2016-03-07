@@ -12,6 +12,11 @@ class Oystercard
   	@balance += value
   end
 
+  def reduce (amount)
+  	@balance -= amount
+  end
+
+
   # def get_balance
   #   balance
   # end

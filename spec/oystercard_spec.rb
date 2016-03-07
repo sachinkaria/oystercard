@@ -18,4 +18,12 @@ describe Oystercard do
 
 	end
 
+	describe "#reduce"do
+		it 'reduces balance by specific amount' do
+			subject.top_up(20)
+			expect{subject.reduce(10)}.to change{subject.balance}.by(-10)
+		end
+	
+	end
+
 end
