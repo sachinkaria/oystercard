@@ -33,7 +33,7 @@ describe Oystercard do
 
     context 'when has touched in' do
       before { oystercard.touch_in }
-      
+
       describe '#touch_in' do
         it 'puts in journey' do
           expect(oystercard).to be_in_journey
@@ -47,15 +47,21 @@ describe Oystercard do
         end
       end
     end
-
   end
 
-  describe '#top_up' do
-    it 'increases balance by given amount' do
-      expect { oystercard.top_up(8) }.to change{ oystercard.balance }.by(8)
+  context 'when not topped up' do
+    describe '#top_up' do
+      it 'increases balance by given amount' do
+        expect { oystercard.top_up(8) }.to change{ oystercard.balance }.by(8)
+      end
+    end
+
+    describe '#touch_in' do
+      it 'raises error' do
+        error = described_class::MIN_ERROR
+        expect{ oystercard.touch_in }.to raise_error error
+      end
     end
   end
-
-
 
 end
