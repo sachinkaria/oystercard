@@ -23,6 +23,31 @@ describe Oystercard do
         expect { oystercard.deduct(5) }.to change{ oystercard.balance }.by(-5)
       end
     end
+
+    describe '#in_journey?' do
+
+      it 'starts out not in journey' do
+        expect(oystercard).to_not be_in_journey
+      end
+    end
+
+    context 'when has touched in' do
+      before { oystercard.touch_in }
+      
+      describe '#touch_in' do
+        it 'puts in journey' do
+          expect(oystercard).to be_in_journey
+        end
+      end
+
+      describe '#touch_out' do
+        it 'takes out of journey' do
+          oystercard.touch_out
+          expect(oystercard).not_to be_in_journey
+        end
+      end
+    end
+
   end
 
   describe '#top_up' do
@@ -30,5 +55,7 @@ describe Oystercard do
       expect { oystercard.top_up(8) }.to change{ oystercard.balance }.by(8)
     end
   end
+
+
 
 end
