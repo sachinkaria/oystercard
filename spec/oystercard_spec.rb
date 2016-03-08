@@ -12,5 +12,11 @@ describe Oystercard do
     it 'increases balance by given amount' do
       expect { oystercard.top_up(8) }.to change{ oystercard.balance }.by(8)
     end
+
+    it 'raises' do
+      error = described_class::MAX_ERROR
+      oystercard.top_up described_class::MAX_AMOUNT
+      expect { oystercard.top_up 1 }.to raise_error error
+    end
   end
 end
