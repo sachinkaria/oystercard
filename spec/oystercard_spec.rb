@@ -18,12 +18,6 @@ describe Oystercard do
       end
     end
 
-    describe '#deduct' do
-      it 'decreases balance by fare' do
-        expect { oystercard.deduct(5) }.to change{ oystercard.balance }.by(-5)
-      end
-    end
-
     describe '#in_journey?' do
 
       it 'starts out not in journey' do
@@ -44,6 +38,11 @@ describe Oystercard do
         it 'takes out of journey' do
           oystercard.touch_out
           expect(oystercard).not_to be_in_journey
+        end
+
+        it 'deducts minimum fare' do
+          min_fare = described_class::MIN_FARE
+          expect{ oystercard.touch_out }.to change{ oystercard.balance }.by(-min_fare)
         end
       end
     end
