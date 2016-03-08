@@ -8,4 +8,9 @@ describe Oystercard do
     end
   end
 
+  describe '#top_up' do
+    it 'increases balance by given amount' do
+      expect { oystercard.top_up(8) }.to change{ oystercard.balance }.by(8)
+    end
+  end
 end
