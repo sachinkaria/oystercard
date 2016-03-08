@@ -2,6 +2,8 @@ require 'oystercard'
 
 describe Oystercard do
   subject(:oystercard) {described_class.new}
+  let(:station) { double :station }
+
   describe '#balance' do
     it 'checks that it has a balance' do
       expect(oystercard.balance).to eq 0
@@ -26,11 +28,17 @@ describe Oystercard do
     end
 
     context 'when has touched in' do
-      before { oystercard.touch_in }
+      before :each do
+        oystercard.touch_in station
+      end
 
       describe '#touch_in' do
         it 'puts in journey' do
           expect(oystercard).to be_in_journey
+        end
+
+        it 'sets entry station' do
+          expect(oystercard.entry_station).to eq station
         end
       end
 
@@ -58,7 +66,7 @@ describe Oystercard do
     describe '#touch_in' do
       it 'raises error' do
         error = described_class::MIN_ERROR
-        expect{ oystercard.touch_in }.to raise_error error
+        expect{ oystercard.touch_in station }.to raise_error error
       end
     end
   end
