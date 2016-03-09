@@ -9,7 +9,7 @@ describe Oystercard do
       expect(card.balance).to be_zero
     end
     it 'should have an empty list of journeys by default' do
-      expect(card.journeys).to be_empty
+      expect(card.journey_history).to be_empty
     end
   end
 
@@ -53,7 +53,7 @@ describe Oystercard do
       card.top_up(5)
       card.touch_in("Bank")
       card.touch_out("Victoria")
-      expect(card.journeys).to eq [{:entry_station => "Bank", :exit_station => "Victoria"}]
+      expect(card.journey_history).to eq [{:entry_station => "Bank", :exit_station => "Victoria"}]
     end
 
   end

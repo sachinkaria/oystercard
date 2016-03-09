@@ -19,15 +19,18 @@ class Journey
     @exit_station = station
   end
 
-  def record_journey
-    journey_record = {:entry_station=> @entry_station, :exit_station => @exit_station}
-  end
 
   def fare
-    if (@journey.entry_station = nil && @journey.exit_station != nil) || (@journey.entry_station != nil && @journey.exit_station = nil)
-    PENALTY_FARE
+    if penalty_fare == true
+      PENALTY_FARE
     else
-    MIN_VALUE
+      MIN_VALUE
+    end
+  end
+
+  def penalty_fare
+    if @entry_station != nil && @exit_station == nil || @entry_station == nil && @exit_station != nil
+      true
     end
   end
 
