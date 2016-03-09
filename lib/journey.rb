@@ -7,14 +7,17 @@ class Journey
     @exit_station = nil
   end
 
-  def entry(station)
+  def entry_station(station)
     @entry_station = station
   end
 
-  def exit(station)
+  def exit_station(station)
     @exit_station = station
   end
 
+  def record_journey
+    journey_record = {:entry_station=> @entry_station, :exit_station => @exit_station}
+  end
 
 
 end

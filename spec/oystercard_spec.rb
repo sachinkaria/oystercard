@@ -35,7 +35,6 @@ describe Oystercard do
       card.top_up(5)
       expect(card.touch_in("Bank")).to eq "Bank"
     end
-
   end
 
   describe '#touch_out' do
