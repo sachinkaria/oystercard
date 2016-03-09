@@ -38,7 +38,6 @@ class Oystercard
     message = "Limit of #{MAX_LIMIT} exceeded"
     raise message if (balance + cash) > MAX_LIMIT
   end
-
   def insufficient_funds
     message = "You have an insufficicent balance"
     raise message if balance < MIN_LIMIT
