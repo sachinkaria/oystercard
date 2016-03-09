@@ -19,13 +19,12 @@ class Oystercard
 
   def touch_in(station)
     raise MIN_ERROR unless balance > MIN_FARE
-    log_journey if !@journey.nil?
+    log_journey unless @journey.nil?
     @journey = Journey.new(station)
   end
 
   def touch_out(station)
     @journey = Journey.new if @journey.nil?
-    deduct(MIN_FARE)
     @journey.complete_journey(station)
     log_journey
   end
@@ -37,6 +36,7 @@ class Oystercard
   end
 
   def log_journey
+    deduct(@journey.fare)
     @journeys << @journey
     @journey = nil
   end

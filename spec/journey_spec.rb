@@ -30,11 +30,11 @@ describe Journey do
   describe "#fare" do
     it "should return 1 if the journey was complete" do
       journey.complete_journey euston
-      expect(journey.fare).to eq 1
+      expect(journey.fare).to eq Oystercard::MIN_FARE
     end
 
     it "should return 6 if the journey was incomplete" do
-      expect(journey.fare).to eq 6
+      expect(journey.fare).to eq described_class::PENALTY_FARE
     end
   end
 end
