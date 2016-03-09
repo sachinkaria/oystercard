@@ -3,14 +3,14 @@ require 'oystercard'
 describe Oystercard do
   subject(:card) { described_class.new }
   max_limit = Oystercard::MAX_LIMIT
-  # let(:journey) { {entry_station: entry_station, exit_station: exit_station} }
 
-  it 'should initialize with a balance of 0' do
-    expect(card.balance).to be_zero
-  end
-
-  it 'should have a maximum limit' do
-    expect(max_limit).to be_a Integer
+  describe '#initialize' do
+    it 'should initialize with a balance of 0' do
+      expect(card.balance).to be_zero
+    end
+    it 'should have an empty list of journeys by default' do
+      expect(card.journeys).to be_empty
+    end
   end
 
   describe '#top_up' do
@@ -45,19 +45,12 @@ describe Oystercard do
       card.touch_in("Bank")
       expect{ card.touch_out("Victoria") }.to change{ card.balance }.by(-1)
     end
-
-  end
-
-  describe 'journeys' do
-    it 'should have an empty list of journeys by default' do
-      expect(card.journeys).to be_empty
-    end
-
-    it 'should save after touching in and out' do
+    it 'save journey after touch_out' do
       card.top_up(5)
       card.touch_in("Bank")
       card.touch_out("Victoria")
       expect(card.journeys).to eq [{:entry_station => "Bank", :exit_station => "Victoria"}]
     end
+
   end
 end

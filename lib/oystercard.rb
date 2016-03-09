@@ -29,6 +29,7 @@ class Oystercard
     deduct(MIN_FARE)
     @journey.exit(station)
     record_journey
+    @journey = Journey.new
   end
 
 
