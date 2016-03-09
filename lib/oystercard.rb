@@ -41,22 +41,23 @@ class Oystercard
     end
   end
 
-  private
-  def within_limit(cash)
-    message = "Limit of #{MAX_VALUE} exceeded"
-    raise message if (balance + cash) > MAX_VALUE
-  end
-  def insufficient_funds
-    message = "You have an insufficicent balance"
-    raise message if balance < MIN_VALUE
-  end
+    private
+    def within_limit(cash)
+      message = "Limit of #{MAX_VALUE} exceeded"
+      raise message if (balance + cash) > MAX_VALUE
+    end
 
-  def deduct(fare)
-    @balance -= fare
-  end
+    def insufficient_funds
+      message = "You have an insufficicent balance"
+      raise message if balance < MIN_VALUE
+    end
 
-  def record_journey
-    @journeys << @journey.record_journey
-  end
+    def deduct(fare)
+      @balance -= fare
+    end
+
+    def record_journey
+      @journeys << @journey.record_journey
+    end
 
 end
