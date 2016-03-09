@@ -1,16 +1,15 @@
 require 'journey'
 
 describe Journey do
-  subject(:journey) { described_class.new }
+  subject(:journey) { described_class.new euston }
   let(:euston) { double :station }
 
   it { is_expected.to respond_to(:entry_station) }
 
   it { is_expected.to respond_to(:exit_station) }
 
-  describe "#start_journey" do
-    it 'should store entry_station' do
-      journey.start_journey(euston)
+  describe "#initialize" do
+    it "should initialize with an optional entry station argument" do
       expect(journey.entry_station).to eq euston
     end
   end
@@ -19,6 +18,12 @@ describe Journey do
     it 'should store exit_station' do
       journey.complete_journey(euston)
       expect(journey.exit_station).to eq euston
+    end
+  end
+
+  describe "#complete?" do
+    it "should return whether or not the journey is complete" do
+      expect(journey).not_to be_complete
     end
   end
 end
