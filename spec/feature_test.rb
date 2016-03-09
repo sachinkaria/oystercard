@@ -12,6 +12,9 @@ p oys.journeys
 
 # station should be optional
 
-oys.touch_out("Highbury & Islington")
-
+oys.touch_in("badaman")
+oys.touch_out("ponys")
+oys.touch_out("future")
+oys.touch_in("loudpack")
+oys.touch_in("jamboree")
 p oys.journeys

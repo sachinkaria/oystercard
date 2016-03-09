@@ -26,4 +26,15 @@ describe Journey do
       expect(journey).not_to be_complete
     end
   end
+
+  describe "#fare" do
+    it "should return 1 if the journey was complete" do
+      journey.complete_journey euston
+      expect(journey.fare).to eq 1
+    end
+
+    it "should return 6 if the journey was incomplete" do
+      expect(journey.fare).to eq 6
+    end
+  end
 end
