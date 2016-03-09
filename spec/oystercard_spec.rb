@@ -2,7 +2,7 @@ require 'oystercard'
 
 describe Oystercard do
   subject(:card) { described_class.new }
-  max_limit = Oystercard::MAX_LIMIT
+  max_value = Oystercard::MAX_VALUE
 
   describe '#initialize' do
     it 'should initialize with a balance of 0' do
@@ -19,8 +19,8 @@ describe Oystercard do
     end
 
     it 'should raise error when exceeding limit' do
-      message = "Limit of #{max_limit} exceeded"
-      expect{ card.top_up (max_limit + 1) }.to raise_error message
+      message = "Limit of #{max_value} exceeded"
+      expect{ card.top_up (max_value + 1) }.to raise_error message
     end
   end
 
@@ -34,6 +34,11 @@ describe Oystercard do
     it 'sets entry_station to the station' do
       card.top_up(5)
       expect(card.touch_in("Bank")).to eq "Bank"
+    end
+    it 'deducts PENALTY_FARE if not touched out' do
+      card.top_up(5)
+      card.touch_in("Bank")
+      expect{ card.touch_in("Victoria") }.to change{ card.balance }.by(-6)
     end
   end
 

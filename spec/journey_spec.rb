@@ -15,13 +15,21 @@ describe Journey do
 
   describe '#entry_station' do
     it 'changes entry_station' do
-      expect(journey.entry_station("Victoria")).to eq "Victoria"
+      expect(journey.entry_st("Victoria")).to eq "Victoria"
     end
   end
 
   describe '#exit_station' do
     it 'changes exit_station' do
-      expect(journey.exit_station("Bank")).to eq "Bank"
+      expect(journey.exit_st("Bank")).to eq "Bank"
+    end
+  end
+
+  describe '#record_journey' do
+    it 'saves journeys as a hash' do
+      journey.entry_st("Victoria")
+      journey.exit_st("Bank")
+      expect(journey.record_journey).to eq ({:entry_station => "Victoria", :exit_station => "Bank"})
     end
   end
 
