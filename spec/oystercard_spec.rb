@@ -28,34 +28,12 @@ describe Oystercard do
       end
     end
 
-    describe '#in_journey?' do
-
-      it 'starts out not in journey' do
-        expect(card).to_not be_in_journey
-      end
-    end
-
     context 'when has touched in' do
       before :each do
         card.touch_in euston
       end
 
-      describe '#touch_in' do
-        it 'puts in journey' do
-          expect(card).to be_in_journey
-        end
-
-        it 'sets entry station' do
-          expect(card.entry_station).to eq euston
-        end
-      end
-
       describe '#touch_out' do
-        it 'takes out of journey' do
-          card.touch_out(lime_house)
-          expect(card).not_to be_in_journey
-        end
-
         it 'deducts minimum fare' do
           min_fare = described_class::MIN_FARE
           expect{ card.touch_out lime_house }.to change{ card.balance }.by(-min_fare)
