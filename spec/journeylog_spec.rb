@@ -1,18 +1,15 @@
 require 'journeylog'
 
 describe JourneyLog do
+  let(:station){ double :station }
+  let(:journey){double :journey, complete?: true}
+  let(:journey_class){double :journey_class, new: journey}
+  subject {described_class.new(journey_class: journey_class)}
 
-  let(:journey){double :journey, entry_station: "euston"}
-  describe "#initialize" do
-    it "should initialize journey_class parameter" do
-        expect(subject.journey).to eq Journey
+  describe "#start" do
+    it "starts a journey" do
+      expect(journey_class).to receive(:new).with(entry_station: station)
+      subject.start(station)
     end
   end
-
-  describe "#journeys" do
-    it "should return an array of journeys" do
-      expect(subject.journeys).to eq []
-    end
-  end
-
 end
