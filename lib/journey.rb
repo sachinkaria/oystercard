@@ -6,6 +6,10 @@ class Journey
     @exit_station = nil
   end
 
+  def start_journey(station)
+    @entry_station = station
+  end
+
   def complete_journey(station)
     @exit_station = station
   end
