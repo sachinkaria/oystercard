@@ -21,7 +21,7 @@ class JourneyLog
   end
 
   def journeys
-    journeys.dup
+    @journeys.dup
   end
 
   private
