@@ -2,8 +2,8 @@ require 'oystercard'
 
 describe Oystercard do
   subject(:card) {described_class.new}
-  let(:euston) { double :station }
-  let(:lime_house) { double :station }
+  let(:z1) { double :station, name: "z1", zone: 1}
+  let(:z2) { double :station, name: "z2", zone: 2}
 
   describe '#balance' do
     it 'checks that it has a balance' do
@@ -30,13 +30,13 @@ describe Oystercard do
 
     context 'when has touched in' do
       before :each do
-        card.touch_in euston
+        card.touch_in(z1)
       end
 
       describe '#touch_out' do
         it 'deducts minimum fare' do
           min_fare = described_class::MIN_FARE
-          expect{ card.touch_out lime_house }.to change{ card.balance }.by(-min_fare)
+          expect{ card.touch_out(z2) }.to change{ card.balance }.by(-(min_fare+1))
         end
       end
     end
@@ -46,13 +46,13 @@ context 'incomplete journey' do
 
   it ' deducts penalty fare on double touch_in' do
     card.top_up(described_class::MAX_AMOUNT)
-    card.touch_in euston
-    expect{card.touch_in(euston)}.to change{card.balance}.by(-6)
+    card.touch_in(z1)
+    expect{card.touch_in(z1)}.to change{card.balance}.by(-6)
   end
 
     it ' deducts penalty fare on double touch_out' do
     card.top_up(described_class::MAX_AMOUNT)
-    expect{card.touch_out(euston)}.to change{card.balance}.by(-6)
+    expect{card.touch_out(z1)}.to change{card.balance}.by(-6)
   end
 end
 
@@ -67,7 +67,7 @@ end
     describe '#touch_in' do
       it 'raises error' do
         error = described_class::MIN_ERROR
-        expect{ card.touch_in euston }.to raise_error error
+        expect{ card.touch_in(z1) }.to raise_error error
       end
     end
   end

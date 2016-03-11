@@ -2,7 +2,8 @@ require 'journey'
 
 describe Journey do
   subject(:journey) { described_class.new}
-  let(:euston) { double :station }
+  let(:euston) { double :station, name: "euston", zone: 1 }
+  let(:lhr) { double :station, name: "heathrow", zone: 5 }
 
   #  describe "#initialize" do
   #   it "should initialize with an optional entry station argument" do
@@ -72,10 +73,10 @@ describe Journey do
 
 
   describe "#fare" do
-    it "should return 1 if the journey was complete" do
+    it "hould calculate the fare from the entry and exit stations" do
       journey.start_journey(euston)
-      journey.complete_journey(euston)
-      expect(journey.fare).to eq described_class::MIN_FARE
+      journey.complete_journey(lhr)
+      expect(journey.fare).to eq 5
     end
 
     it "should return 6 if the journey was incomplete" do
