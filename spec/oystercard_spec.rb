@@ -49,6 +49,11 @@ context 'incomplete journey' do
     card.touch_in euston
     expect{card.touch_in(euston)}.to change{card.balance}.by(-6)
   end
+
+    it ' deducts penalty fare on double touch_out' do
+    card.top_up(described_class::MAX_AMOUNT)
+    expect{card.touch_out(euston)}.to change{card.balance}.by(-6)
+  end
 end
 
 

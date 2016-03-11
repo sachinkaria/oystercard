@@ -3,7 +3,7 @@ require_relative 'journey'
 
 class Oystercard
 
-  attr_reader :balance
+  attr_reader :balance, :journey_log
 
   MAX_AMOUNT = 90
   MIN_FARE = 1
@@ -22,9 +22,10 @@ class Oystercard
 
   def touch_in(station)
     if @journey_log.current_journey.in_progress?
+
       deduct(@journey_log.current_journey.fare)
       @journey_log.store_journey
-    end if
+    end
     raise MIN_ERROR unless balance > MIN_FARE
     @journey_log.start(station)
   end
