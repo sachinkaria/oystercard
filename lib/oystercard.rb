@@ -10,9 +10,9 @@ class Oystercard
   MAX_ERROR = "Cannot exceed max balance £#{MAX_AMOUNT}"
   MIN_ERROR = "You need to have at least £#{MIN_FARE}"
 
-  def initialize
+  def initialize(journeylog: JourneyLog.new)
     @balance = 0
-    @journey_log = JourneyLog.new
+    @journey_log = journeylog
   end
 
   def top_up(amount)
@@ -22,7 +22,6 @@ class Oystercard
 
   def touch_in(station)
     if @journey_log.current_journey.in_progress?
-
       deduct(@journey_log.current_journey.fare)
       @journey_log.store_journey
     end

@@ -5,11 +5,6 @@ describe Journey do
   let(:euston) { double :station, name: "euston", zone: 1 }
   let(:lhr) { double :station, name: "heathrow", zone: 5 }
 
-  #  describe "#initialize" do
-  #   it "should initialize with an optional entry station argument" do
-  #     expect(journey.entry_station).to eq euston
-  #   end
-  # end
 
   describe "#start_journey" do
     it 'should store entry_station' do
