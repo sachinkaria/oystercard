@@ -1,7 +1,6 @@
 require 'journeylog'
 
 describe JourneyLog do
-<<<<<<< HEAD
   let(:station){ double :station }
   let(:journey){double :journey, complete?: true}
   let(:journey_class){double :journey_class, new: journey}
@@ -13,7 +12,7 @@ describe JourneyLog do
       subject.start(station)
     end
   end
-=======
+
 
   describe "#new_journey" do
     it "should create a new journey object" do
@@ -41,6 +40,4 @@ describe JourneyLog do
     end
   end
 
-
->>>>>>> 3f4981ed0535c330ccfacd3f1a5ac1e9da59463f
 end

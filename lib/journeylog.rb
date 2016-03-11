@@ -1,3 +1,5 @@
+require_relative 'journey'
+
 class JourneyLog
 
   attr_reader :journeys
@@ -11,7 +13,7 @@ class JourneyLog
   end
 
   def start(station)
-    @journeys << @journey_class.new(station)
+    @journeys << @journey_class.new(entry_station: station)
     @journeys[-1]
   end
   #
@@ -24,7 +26,6 @@ class JourneyLog
     @journeys.dup
   end
 
-  private
 
   def current_journey
     @current_journey || journey_class.new

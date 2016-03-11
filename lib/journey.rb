@@ -1,5 +1,7 @@
 class Journey
   attr_reader :entry_station, :exit_station
+
+  MIN_FARE = 1
   PENALTY_FARE = 6
   def initialize(entry_station=nil)
     @entry_station = entry_station
@@ -19,6 +21,6 @@ class Journey
   end
 
   def fare
-    complete? ? Oystercard::MIN_FARE : PENALTY_FARE
+    complete? ? MIN_FARE : PENALTY_FARE
   end
 end

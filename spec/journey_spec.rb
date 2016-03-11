@@ -4,11 +4,7 @@ describe Journey do
   subject(:journey) { described_class.new euston }
   let(:euston) { double :station }
 
-  it { is_expected.to respond_to(:entry_station) }
-
-  it { is_expected.to respond_to(:exit_station) }
-
-  describe "#initialize" do
+   describe "#initialize" do
     it "should initialize with an optional entry station argument" do
       expect(journey.entry_station).to eq euston
     end
@@ -30,7 +26,7 @@ describe Journey do
   describe "#fare" do
     it "should return 1 if the journey was complete" do
       journey.complete_journey euston
-      expect(journey.fare).to eq Oystercard::MIN_FARE
+      expect(journey.fare).to eq described_class::MIN_FARE
     end
 
     it "should return 6 if the journey was incomplete" do
