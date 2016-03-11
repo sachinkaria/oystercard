@@ -8,27 +8,27 @@ class JourneyLog
     @journeys = []
   end
 
-  def new_journey
-    @journey_class.new
-  end
-
   def start(station)
-    @journeys << @journey_class.new(entry_station: station)
-    @journeys[-1]
+    current_journey
+    @journey.start_journey(station)
   end
   #
   def finish(station)
-    @journeys[-1].complete_journey(station)
-    @journeys[-1]
+    current_journey
+    @journey.complete_journey(station)
+  end
+
+  def store_journey
+    @journeys << @journey
+    @journey = nil
   end
 
   def journeys
     @journeys.dup
   end
 
-
   def current_journey
-    @current_journey || journey_class.new
+    @journey ||= @journey_class.new
   end
 
 end

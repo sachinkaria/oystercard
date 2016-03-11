@@ -12,7 +12,7 @@ class Oystercard
 
   def initialize
     @balance = 0
-    @journey = JourneyLog.new
+    @journey_log = JourneyLog.new
   end
 
   def top_up(amount)
@@ -21,13 +21,18 @@ class Oystercard
   end
 
   def touch_in(station)
+    if @journey_log.current_journey.in_progress?
+      deduct(@journey_log.current_journey.fare)
+      @journey_log.store_journey
+    end if
     raise MIN_ERROR unless balance > MIN_FARE
-    @journey.start(station)
+    @journey_log.start(station)
   end
 
   def touch_out(station)
-    @journey.finish(station)
-    deduct(@journey.journeys[-1].fare)
+    @journey_log.finish(station)
+    deduct(@journey_log.current_journey.fare)
+    @journey_log.store_journey
   end
 
   private

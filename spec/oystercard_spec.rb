@@ -21,12 +21,12 @@ describe Oystercard do
       end
     end
 
-    describe '#journeys' do
-      it 'keeps track of journeys' do
-        card.touch_in(lime_house)
-        expect{ card.touch_out(euston) }.to change{ card.journeys.size }.by(1)
-      end
-    end
+    # describe '#journeys' do
+    #   it 'keeps track of journeys' do
+    #     card.touch_in(lime_house)
+    #     expect{ card.touch_out(euston) }.to change{ card.journeys.size }.by(1)
+    #   end
+    # end
 
     context 'when has touched in' do
       before :each do
@@ -41,6 +41,16 @@ describe Oystercard do
       end
     end
   end
+
+context 'incomplete journey' do
+
+  it ' deducts penalty fare on double touch_in' do
+    card.top_up(described_class::MAX_AMOUNT)
+    card.touch_in euston
+    expect{card.touch_in(euston)}.to change{card.balance}.by(-6)
+  end
+end
+
 
   context 'when not topped up' do
     describe '#top_up' do
